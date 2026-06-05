@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Unga ❤️</title>
+<style>
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#0b1020;
+    color:white;
+    overflow:hidden;
+}
+#stars{
+    position:fixed; inset:0;
+    pointer-events:none;
+    z-index:0;
+    background:
+      radial-gradient(2px 2px at 20% 30%, white, transparent),
+      radial-gradient(2px 2px at 80% 20%, white, transparent),
+      radial-gradient(2px 2px at 60% 70%, white, transparent),
+      radial-gradient(2px 2px at 10% 80%, white, transparent),
+      radial-gradient(2px 2px at 90% 60%, white, transparent);
+}
+.screen{
+    position:relative;
+    z-index:1;
+    height:100vh;
+    display:none;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:20px;
+}
+.screen.active{display:flex;}
+button{
+    padding:12px 20px;
+    margin:10px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:18px;
+}
+h1,h2{max-width:800px;}
+#hearts span{
+    position:fixed;
+    font-size:24px;
+    animation:float 5s linear forwards;
+}
+@keyframes float{
+    from{transform:translateY(0);opacity:1;}
+    to{transform:translateY(-500px);opacity:0;}
+}
+</style>
+</head>
+<body>
+<div id="stars"></div>
+
+<audio id="music" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<div id="hearts"></div>
+
+<div class="screen active" id="s1">
+<h1>🎂 Happy Birthday, Unga ❤️</h1>
+<button onclick="start()">Enter at your own risk</button>
+</div>
+
+<div class="screen" id="s2">
+<h2>Security Check</h2>
+<p>Are you Lalli?</p>
+<button onclick="next(3)">Yes ✅</button>
+<button onclick="alert('Nice try. Access denied. 😤')">No ❌</button>
+</div>
+
+<div class="screen" id="s3">
+<h2>Identity Verification</h2>
+<p>Are you cute?</p>
+<button onclick="next(4)">Yes 😌</button>
+<button onclick="next(4)">Very Yes 😌✨</button>
+</div>
+
+<div class="screen" id="s4">
+<h2>Important Question</h2>
+<p>How old are you today?</p>
+<button onclick="alert('Close... if you are a time traveler.')">12</button>
+<button onclick="alert('Ancient birthday detected.')">120</button>
+<button onclick="next(5)">21</button>
+</div>
+
+<div class="screen" id="s5">
+<h2>Birthday Loot Box 🎁</h2>
+<button onclick="revealLoot()">Open Loot Box</button>
+<p id="loot"></p>
+</div>
+
+<div class="screen" id="s6">
+<h2>Preparing birthday message...</h2>
+<p id="loading">0%</p>
+</div>
+
+<div class="screen" id="s7">
+<h1>Happy Birthday, Unga ❤️</h1>
+<p style="max-width:700px;font-size:22px;line-height:1.7;">
+Always smile and be the woman you are destined to be,
+I will be there with you on this journey.
+</p>
+<button onclick="hearts()">One More Hug 🫂</button>
+</div>
+
+<script>
+function show(id){
+ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+ document.getElementById('s'+id).classList.add('active');
+}
+function next(id){ show(id); }
+
+function start(){
+ document.getElementById('music').play().catch(()=>{});
+ next(2);
+}
+
+function revealLoot(){
+ document.getElementById('loot').innerHTML =
+ '+100 Happiness<br>+50 Luck<br>+999 Aura<br>+1 Annoying Boyfriend';
+ setTimeout(()=>{
+   show(6);
+   let p=0;
+   let t=setInterval(()=>{
+      p+=5;
+      document.getElementById('loading').innerText=p+'%';
+      if(p>=100){
+        clearInterval(t);
+        show(7);
+      }
+   },120);
+ },1500);
+}
+
+function hearts(){
+ for(let i=0;i<25;i++){
+   let h=document.createElement('span');
+   h.innerHTML='❤️';
+   h.style.left=Math.random()*100+'vw';
+   h.style.bottom='0px';
+   document.getElementById('hearts').appendChild(h);
+   setTimeout(()=>h.remove(),5000);
+ }
+}
+</script>
+</body>
+</html>
